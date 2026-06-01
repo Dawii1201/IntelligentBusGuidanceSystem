@@ -12,7 +12,7 @@ public class Driver {
 
     public Driver(String driverID, String name, int experienceYears, String licenseType, String address, String birthDate)
      {
-        if(!isValidDriverID(driverID)) {
+        if(driverID == null || driverID.trim().isEmpty()) {
             throw new IllegalArgumentException("Invalid Driver ID");
         }
 
