@@ -1,5 +1,9 @@
 package com.busguidance.model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
+
 // Placeholder file for Member 2 to complete.
 // TODO: Implement Driver attributes, constructor, getters, setters, and D1-D5 validation.
 public class Driver {
@@ -41,10 +45,49 @@ public class Driver {
      this.birthDate = birthDate;
     }
 
+
+    //Getters
+        public String getDriverID() {
+        return driverID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getExperienceYears() {
+        return experienceYears;
+    }
+
+    public String getLicenseType() {
+        return licenseType;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    //Setters
+    public void setExperienceYears(int experienceYears) {
+        if (experienceYears < 0) {
+            throw new IllegalArgumentException("Experience years cannot be negative.");
+            }
+         this.experienceYears = experienceYears;
+        }
+
+
+    
+
+
+
     // D1: Driver ID rule...   driverID must unique and no driverID duplicates //Driver Repo must check this **********
     // driverID exactly 10 characters long, first 2 characters must be 2-9. atleast 2 special character 3-8. last 2 characters must uppercase A-Z
 
-    public boolean validateDriverID() {
+    public boolean isValidDriverID() {
     if (driverID == null || driverID.length() != 10) {
         return false;
     }
@@ -72,9 +115,68 @@ public class Driver {
     if (specialCharacterCount < 2) {
         return false;
     }
-
     return true;
-}
-       
+    }
+
+
+    //D2 Address format
+    public static boolean isValidAddress(String address) {
+    if (address == null || address.trim().isEmpty()) {
+            return false;
+        }
+
+        String[] parts = address.split("\\|", -1);
+
+    if (parts.length != 5) {
+            return false;
+        }
+
+        String streetNumber = parts[0].trim();
+        String streetName = parts[1].trim();
+        String city = parts[2].trim();
+        String state = parts[3].trim();
+        String country = parts[4].trim();
+
+    return streetNumber.matches("\\d+")
+        && !streetName.isEmpty()
+        && !city.isEmpty()
+        && !state.isEmpty()
+        && !country.isEmpty();
+    }
+
+    //D3 birth date format
+        public static boolean isValidBirthdate(String birthdate) {
+        if (birthdate == null || !birthdate.matches("\\d{2}-\\d{2}-\\d{4}")) {
+            return false;
+        }
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter
+                    .ofPattern("dd-MM-uuuu")
+                    .withResolverStyle(ResolverStyle.STRICT);
+
+            LocalDate.parse(birthdate, formatter);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+
+     // Valid licence types 
+
+    public static boolean isValidLicenseType(String licenseType) {
+        if (licenseType == null) {
+            return false;
+        }
+
+        return licenseType.equals("Light")
+                || licenseType.equals("Medium")
+                || licenseType.equals("Heavy")
+                || licenseType.equals("PublicTransport");
+    }
+
+    //NEED D4 and D5 validation methods here
+
 
 }
