@@ -78,8 +78,73 @@ public class Driver {
             }
          this.experienceYears = experienceYears;
         }
+    
+    public void setAddress(String address) {
+        if (!isValidAddress(address)) {
+            throw new IllegalArgumentException("Invalid address format.");
+        }
+        this.address = address;
+    }
+
+    public void setBirthdate(String birthdate) {
+        if (!isValidBirthdate(birthdate)) {
+            throw new IllegalArgumentException("Invalid birthdate format.");
+        }
+
+        this.birthDate = birthdate;
+    }
+
+    public void setLicenseType(String newLicenseType) {
+        if (!isValidLicenseType(newLicenseType)) {
+            throw new IllegalArgumentException("Invalid license type.");
+        }
+
+        // D4: Drivers with more than 10 years of experience cannot change licence type.
+        if (this.experienceYears > 10 && !this.licenseType.equals(newLicenseType)) {
+            throw new IllegalArgumentException(
+                    "Drivers with more than 10 years of experience cannot change license type."
+            );
+        }
+
+        this.licenseType = newLicenseType;
+    }
 
 
+    //Update driver details method
+     public void updateDetails(
+            int newExperienceYears,
+            String newLicenseType,
+            String newAddress,
+            String newBirthdate
+    ) {
+        if (newExperienceYears < 0) {
+            throw new IllegalArgumentException("Experience years cannot be negative.");
+        }
+
+        if (!isValidLicenseType(newLicenseType)) {
+            throw new IllegalArgumentException("Invalid license type.");
+        }
+
+        if (!isValidAddress(newAddress)) {
+            throw new IllegalArgumentException("Invalid address format.");
+        }
+
+        if (!isValidBirthdate(newBirthdate)) {
+            throw new IllegalArgumentException("Invalid birthdate format.");
+        }
+
+        // D4: If current experience is more than 10 years, licence cannot be changed.
+        if (this.experienceYears > 10 && !this.licenseType.equals(newLicenseType)) {
+            throw new IllegalArgumentException(
+                    "Drivers with more than 10 years of experience cannot change license type."
+            );
+        }
+
+        this.experienceYears = newExperienceYears;
+        this.licenseType = newLicenseType;
+        this.address = newAddress;
+        this.birthDate = newBirthdate;
+    }
     
 
 
@@ -176,7 +241,18 @@ public class Driver {
                 || licenseType.equals("PublicTransport");
     }
 
-    //NEED D4 and D5 validation methods here
+    // license type must be correct
+    public static boolean isValidLicenseType1(String licenseType) {
+    
+        if (licenseType == null) {
+            return false;
+        }
+
+        return licenseType.equals("Light")
+                || licenseType.equals("Medium")
+                || licenseType.equals("Heavy")
+                || licenseType.equals("PublicTransport");
+    }
 
 
 }
