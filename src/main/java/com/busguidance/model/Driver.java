@@ -19,7 +19,10 @@ public class Driver {
         if(driverID == null || driverID.trim().isEmpty()) {
             throw new IllegalArgumentException("Invalid Driver ID");
         }
-
+        // validate driverID syntax
+        if (!isValidDriverID(driverID)) {
+            throw new IllegalArgumentException("Invalid Driver ID");
+        }
         if(name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Name cant be empty");
         }
@@ -34,6 +37,18 @@ public class Driver {
         }
         if(birthDate == null || birthDate.trim().isEmpty()) {
             throw new IllegalArgumentException("Invalid Birth Date");
+        }
+        // validate address and birthdate formats
+        if (!isValidAddress(address)) {
+            throw new IllegalArgumentException("Invalid Address");
+        }
+
+        if (!isValidBirthdate(birthDate)) {
+            throw new IllegalArgumentException("Invalid Birth Date");
+        }
+
+        if (!isValidLicenseType(licenseType)) {
+            throw new IllegalArgumentException("Invalid License Type");
         }
      
 
@@ -181,6 +196,30 @@ public class Driver {
         return false;
     }
     return true;
+    }
+
+    // static helper to validate an arbitrary driverID string (useful in constructor)
+    public static boolean isValidDriverID(String id) {
+        if (id == null || id.length() != 10) {
+            return false;
+        }
+
+        if (!id.substring(0, 2).matches("[2-9]{2}")) {
+            return false;
+        }
+
+        if (!id.substring(8, 10).matches("[A-Z]{2}")) {
+            return false;
+        }
+
+        String middlePart = id.substring(2, 8);
+        int specialCharacterCount = 0;
+        for (char c : middlePart.toCharArray()) {
+            if (!Character.isLetterOrDigit(c)) {
+                specialCharacterCount++;
+            }
+        }
+        return specialCharacterCount >= 2;
     }
 
 
