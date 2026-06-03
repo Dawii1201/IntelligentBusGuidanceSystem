@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 
 // Placeholder file for Member 2 to complete.
-// TODO: Implement Driver attributes, constructor, getters, setters, and D1-D5 validation.
+
 public class Driver {
     private final String driverID;
     private String name;
