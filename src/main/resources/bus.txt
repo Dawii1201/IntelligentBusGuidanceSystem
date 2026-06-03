@@ -1,1 +1,3 @@
-for your buses data
+busID,capacity,fuelLevel,fuelType
+12345678,55,80.0,Diesel
+87654321,40,60.0,Electricity

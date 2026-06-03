@@ -7,7 +7,7 @@ import java.time.format.ResolverStyle;
 
 
 public class Bus {
-    private String busID;
+    private final String busID;
     private int capacity;
     private double fuelLevel;
     private String fuelType; // Diesel, Hybrid, Electricity
@@ -42,7 +42,6 @@ public class Bus {
 
     /**
      * B2: Bus capacity cannot increase during update operations
-
      */
     public void setCapacity(int newCapacity) {
         validateCapacity(newCapacity);
@@ -119,12 +118,9 @@ public class Bus {
         }
 
         // B5
-        if ((this.fuelType.equals("Electricity") || this.fuelType.equals("Hybrid"))
-                && !(licenseType.equals("Heavy") || licenseType.equals("PublicTransport"))) {
-            return false;
-        }
-
-        return true;
+        boolean electricOrHybrid = this.fuelType.equals("Electricity") || this.fuelType.equals("Hybrid");
+        boolean licenceAllowed = licenseType.equals("Heavy") || licenseType.equals("PublicTransport");
+        return !electricOrHybrid || licenceAllowed;
     }
 
     /**
