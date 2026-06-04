@@ -2,4 +2,4 @@ driverID,name,experienceYears,licenseType,address,birthdate
 23@@abcdAB,John Smith,5,Heavy,12|King Street|Melbourne|VIC|Australia,15-06-1995
 45##abcdCD,Sarah Lee,12,PublicTransport,88|Queen Street|Melbourne|VIC|Australia,22-03-1988
 56$$abcdEF,Michael Tan,7,Heavy,25|Swanston Street|Melbourne|VIC|Australia,12-08-1994
-
+67@@demoGH,Demo Driver,4,Medium,30|Demo Street|Melbourne|VIC|Australia,10-10-1998
